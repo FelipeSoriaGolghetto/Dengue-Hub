@@ -1,0 +1,35 @@
+<html>
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel Script -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/jsx">
+      const app = document.getElementById("app")
+     
+      function Header( props ) {
+        return (<h1>{props.title ? props.title : 'Default title' }</h1>)
+      }
+
+      function HomePage() {
+        const names = ['A', 'BB', 'CCC'];
+
+        return (
+          <div>
+            <Header title="React" text="lorem ipsum" />
+            <ul>
+              {names.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
+            <button>Like</button>
+          </div>
+        );
+      }
+     
+      const root = ReactDOM.createRoot(app);
+      root.render(<HomePage />);
+    </script>
+  </body>
+</html>
