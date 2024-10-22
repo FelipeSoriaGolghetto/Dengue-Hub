@@ -14,7 +14,7 @@ const Sidebar = () => {
     <>
       <aside className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
         <button onClick={toggleSidebar} className="toggle-button">
-          {isOpen ? 'Fechar' : 'Abrir'}
+          {isOpen ? "F" : 'A'}
         </button>
         <nav>
           <ul>
@@ -27,7 +27,8 @@ const Sidebar = () => {
         <style jsx>{`
           .sidebar {
             margin-top: 50px;
-            width: 600px;
+            margin-left:   10px;
+            width: 50 px;
             background-color: #C7EAC1;
             padding: 1rem;
             color: white;
@@ -37,17 +38,19 @@ const Sidebar = () => {
             position: relative; /* Para que o botão possa ser posicionado dentro */
           }
           .sidebar.closed {
-            transform: translateX(-50%); /* Sidebar oculta */
-            pointer-events: none; /* Ignorar eventos quando fechada */
+            transform: translateX(-100%); /* Sidebar oculta */
+          }
+          .sidebar.open {
+            transform: translateX(0); 
           }
           .toggle-button {
             background-color: #96CE8C; /* Cor do botão */
             color: black;
             border: none;
-            width: 600px;
+            width: 40px;
             padding: 10px;
             cursor: pointer;
-            margin-right: 10px;
+            margin-left: 10rem; 
             margin-bottom: 1rem; /* Espaçamento abaixo do botão */
             position: relative; /* Para posicionar o botão */
             top: 10px; /* Distância do topo da sidebar */
