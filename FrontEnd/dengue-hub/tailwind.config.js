@@ -1,4 +1,3 @@
-import daisyui from 'daisyui' 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -11,10 +10,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'sidebar': "#C7EAC1",
+        'button': "#96CE8C",
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
     },
   },
-  plugins: [daisyui],
+  plugins:  [require("daisyui")],
 };

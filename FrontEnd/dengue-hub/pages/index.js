@@ -1,6 +1,11 @@
 import Sidebar from '../components/sidebar'; // Importe a Sidebar
 import Topbar from '../components/topbar';
 import Link from 'next/link';
+<<<<<<< Updated upstream
+=======
+import '../styles/custom.css';
+import Drawer from '../components/drawer';
+>>>>>>> Stashed changes
 
 const articles = [
   { slug: 'introducao-nextjs', title: 'Introdução ao Next.js' },
@@ -12,7 +17,7 @@ const WikiHome = () => {
   return (
     <div className="layout">
       {/* Sidebar importada */}
-      <Sidebar />
+      <Drawer />
 
       {/* TopBar importada */}
       <Topbar />
