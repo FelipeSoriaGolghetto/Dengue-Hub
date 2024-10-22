@@ -1,4 +1,4 @@
-import '../styles/global.css';
+import '../styles/custom.css';
 import { Roboto } from 'next/font/google';
 
 // Importando a fonte Roboto

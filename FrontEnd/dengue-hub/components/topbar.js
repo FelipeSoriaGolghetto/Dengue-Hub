@@ -1,5 +1,6 @@
 // components/TopBar.js
 import { useState } from 'react';
+import '../styles/custom.css';
 
 const TopBar = ({ isOpen, toggleSidebar }) => {
   return (

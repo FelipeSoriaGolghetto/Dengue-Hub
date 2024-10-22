@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import '../styles/custom.css';
 
 const Sidebar = () => {
   // Estado para controlar a visibilidade da sidebar

@@ -1,6 +1,7 @@
 import Sidebar from '../components/sidebar'; // Importe a Sidebar
 import Topbar from '../components/topbar';
 import Link from 'next/link';
+import '../styles/custom.css';
 
 const articles = [
   { slug: 'introducao-nextjs', title: 'Introdução ao Next.js' },
