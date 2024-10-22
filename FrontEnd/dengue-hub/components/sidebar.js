@@ -27,23 +27,24 @@ const Sidebar = () => {
         <style jsx>{`
           .sidebar {
             margin-top: 50px;
-            width: 250px;
+            width: 600px;
             background-color: #C7EAC1;
             padding: 1rem;
             color: white;
             height: 100vh; /* Para a sidebar ocupar toda a altura da tela */
-            transition: transform 0.3s ease; /* Animação suave */
+            transition: transform 0.4s ease; /* Animação suave */
             transform: translateX(0); /* Sidebar visível */
             position: relative; /* Para que o botão possa ser posicionado dentro */
           }
           .sidebar.closed {
-            transform: translateX(-100%); /* Sidebar oculta */
+            transform: translateX(-50%); /* Sidebar oculta */
             pointer-events: none; /* Ignorar eventos quando fechada */
           }
           .toggle-button {
             background-color: #96CE8C; /* Cor do botão */
             color: black;
             border: none;
+            width: 600px;
             padding: 10px;
             cursor: pointer;
             margin-right: 10px;
