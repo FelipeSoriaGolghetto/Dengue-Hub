@@ -22,20 +22,13 @@ const WikiHome = () => {
         <h1>Como identificar um aedes aegypti voando ?</h1>
         <p className="intro">
         Quando ele pousa, caso olhemos de perto, podemos verificar se aquele  mosquito trata-se de um mosquito da dengue ou se é apenas um pernilongo  comum, mas às vezes precisamos saber se é um mosquito da dengue antes  dele pousar, então aqui vão algumas dicas de como identificar um  mosquito da dengue enquanto tal ainda está em voo.
-
+        </p><p>
         1-Tamanho: O inseto transmissor do vírus é normalmente bem menor que um mosquito qualquer
-          2-Voo: O aedes aegypt é mais rápido que um pernilongo,  sendo assim mais difícil de matá-lo a "sandalhadas" ou tapas, porém,  enquanto voa, ele normalmente fica rodeando o local antes de pousar. Ele  também voa mais na altura da perna humana, mas pode chegar a voar até  mais que 1,50m
-
+          
         </p>
-        {/* <ul className="article-list">
-          {articles.map((article) => (
-            <li key={article.slug}>
-              <Link href={`/wiki/${article.slug}`}>
-                {article.title}
-              </Link>
-            </li>
-          ))}
-        </ul> */}
+        <p>
+        2-Voo: O aedes aegypt é mais rápido que um pernilongo,  sendo assim mais difícil de matá-lo a "sandalhadas" ou tapas, porém,  enquanto voa, ele normalmente fica rodeando o local antes de pousar. Ele  também voa mais na altura da perna humana, mas pode chegar a voar até  mais que 1,50m
+        </p>
       </div>
 
       <style jsx>{`
