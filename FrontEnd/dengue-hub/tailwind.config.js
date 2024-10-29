@@ -8,12 +8,25 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}', 
   ],
   theme: {
+    colors:{
+        sidebar: '#C7EAC1',
+        button: '#96CE8C',
+    },
     extend: {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
     },
+  },
+  daisyui: {
+    themes: [
+      {
+        light: {
+          primary: "#000",
+        },
+      },
+    ],
   },
   plugins:  [require("daisyui")],
 };

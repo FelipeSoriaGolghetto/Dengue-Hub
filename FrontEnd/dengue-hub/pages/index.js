@@ -1,5 +1,7 @@
 import Sidebar from '../components/sidebar'; // Importe a Sidebar
 import Topbar from '../components/topbar';
+import Drawer from '../components/drawer';
+import Navbar from '../components/navbar';
 import Link from 'next/link';
 import '../styles/custom.css';
 
@@ -12,23 +14,38 @@ const articles = [
 const WikiHome = () => {
   return (
     <div className="layout">
-      {/* Sidebar importada */}
-      <Sidebar />
-
-      {/* TopBar importada */}
-      <Topbar />
-
-      {/* Conteúdo principal */}
+      
       <div className="content">
-        <h1>Como identificar um aedes aegypti voando ?</h1>
+      
+      <Navbar /> 
+      <Drawer /> 
+      
+      <h4 className="titulo mt-5">Como identificar um aedes aegypti voando ?</h4>
+          <div className="wiki-metadata">
+            <h2 className="font-bold">Aedes aegypti</h2>
+            <img src="https://static.nationalgeographicbrasil.com/files/styles/image_3200/public/fiocruz-imagensraquel-portugalerodrigo-mexas-2.jpg?w=1600&h=900" class="wiki-pic" />
+            <table className="wiki-table">
+            </table>
+          </div>
+
         <p className="intro">
-        Quando ele pousa, caso olhemos de perto, podemos verificar se aquele  mosquito trata-se de um mosquito da dengue ou se é apenas um pernilongo  comum, mas às vezes precisamos saber se é um mosquito da dengue antes  dele pousar, então aqui vão algumas dicas de como identificar um  mosquito da dengue enquanto tal ainda está em voo.
-        </p><p>
-        1-Tamanho: O inseto transmissor do vírus é normalmente bem menor que um mosquito qualquer
-          
+          Quando ele pousa, caso olhemos de perto, podemos verificar se aquele  mosquito trata-se de um mosquito da dengue ou se é apenas um pernilongo  comum, mas às vezes precisamos saber se é um mosquito da dengue antes  dele pousar, então aqui vão algumas dicas de como identificar um  mosquito da dengue enquanto tal ainda está em voo.
         </p>
-        <p>
-        2-Voo: O aedes aegypt é mais rápido que um pernilongo,  sendo assim mais difícil de matá-lo a "sandalhadas" ou tapas, porém,  enquanto voa, ele normalmente fica rodeando o local antes de pousar. Ele  também voa mais na altura da perna humana, mas pode chegar a voar até  mais que 1,50m
+        <p className="lista">
+          1-Tamanho: O inseto transmissor do vírus é normalmente bem menor que um mosquito qualquer 
+        </p>
+        <p className="lista">
+          2-Voo: O aedes aegypt é mais rápido que um pernilongo,  sendo assim mais difícil de matá-lo a "sandalhadas" ou tapas, porém,  enquanto voa, ele normalmente fica rodeando o local antes de pousar. Ele  também voa mais na altura da perna humana, mas pode chegar a voar até  mais que 1,50m
+        </p>
+        <div className="wiki-metadata float-left mt-10 mr-10">
+            <h2 className="font-bold">Prefeitura Municipal de Pereiras</h2>
+            <img src="https://www.pereiras.sp.gov.br/public/admin/globalarq/uploads/files/338386918_600517725466525_5865963220632897994_n.jpg" class="wiki-pic" />
+            <table className="wiki-table">
+            </table>
+          </div>
+        <p className="lista">
+        Então se você ver um mosquito pequeno, ágil, que está rodeando o  local e voa baixo, dedetize o local  e cheque lugares que armazenam  água.
+Lembrando que nem todo aedes aegypt ou aedes albopictus (mosquito  tigre asiático, também transmissor do vírus) está contaminado com o  vírus. O vírus não é originado do próprio mosquito e ele ganha o vírus  apenas quando pica uma pessoa infectada, e quando ele pica outra depois  ele passa pra ela também.
         </p>
       </div>
 
@@ -42,12 +59,13 @@ const WikiHome = () => {
           padding: 2rem;
           background-color: #f9f9f9;
         }
-        h1 {
-          color: #333;
-        }
-        .intro {
-          font-size: 1.2rem;
+        .titulo {
+          font-size: 2.2rem;
+          font-weight: bold;
           margin-bottom: 2rem;
+        }
+        .lista {
+          margin-top: 2rem;
         }
         .article-list {
           list-style: none;
