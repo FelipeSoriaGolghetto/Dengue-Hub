@@ -47,6 +47,40 @@ main {
 }
 
 /* Estilize os textos globais */
-h1, h2, h3, p {
+h1, h2, h3, h4, p {
+  font-size: 1.2rem;
   color: #000; /* Cor padrão do texto */
 }
+
+.wiki-metadata {
+  display: table; /* This facilitates most of the styling */
+  float: right; /* Mandatory. Can use the left, I guess */
+  max-width: 500px; /* Size of metadata pane */
+  }
+  
+  .wiki-pic {
+  display: block; /* puts Mimmy's picture in its own block */
+  margin: 0 auto; /* centers the portrait of Mimmy */
+  }
+  
+  .wiki-table td {
+  border: 0; /* Gets rid of the grey border Obsidian applies to the cells */
+  }
+  
+  .wiki-metadata {
+  margin-left: 2em; /* Space between your text and the metadata */
+  background-color: #96CE8C; /* Hex colour to make it a shade of grey */
+  border: 1px solid #C7EAC1; /* Applies a pink border to the sidebar */
+  }
+  
+  .wiki-metadata h2 { /* This is for the block at the top of the table that says 'Mimmy', and you can have an unlimited number within your metadata */
+  background-color: #96CE8C;
+  color: #fff; /* Text colour */
+  text-align: center;
+  display: table-row;
+  }
+  
+  .wiki-table tr td:nth-child(1) { /* Your first cell in each row, e.g. 'Full Name'. Use nth-child(2) to style normal text */
+  font-weight: bold;
+  padding-right: 0.5em; /* Spacing between the text in each row */
+  }
