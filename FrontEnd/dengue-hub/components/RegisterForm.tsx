@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-export default function LoginForm() {
+export default function RegisterForm() {
     return(
     <form className="bg-white p-12 rounded-lg w-96 max-w-full flex justify-center items-center flex-col gap-2">
         <div className="flex items-center mb-1">
@@ -16,6 +16,11 @@ export default function LoginForm() {
       <input 
         type="name"
         placeholder="Nome completo" 
+        className="input input-primary w-full" 
+      />
+      <input 
+        type="job"
+        placeholder="Profissão" 
         className="input input-primary w-full" 
       />
       <input 
