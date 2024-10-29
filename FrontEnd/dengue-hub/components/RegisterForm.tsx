@@ -5,12 +5,13 @@ import React from 'react';
 
 export default function RegisterForm() {
     return(
-    <form className="bg-white p-12 rounded-lg w-96 max-w-full flex justify-center items-center flex-col gap-2">
+    <form className="border-dashed border-2 border-black bg-white p-12 rounded-lg w-96 max-w-full flex justify-center items-center flex-col">
         <div className="flex items-center mb-1">
-            <h1 className="font-bold text-2xl mb-0">DENGUE HUB</h1>
-            <Image src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" /> 
+        <a className="btn btn-ghost text-2xl font-bold" href='/'>DENGUE HUB
+            <img src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" />
+        </a>
         </div>         
-      <div className="divider -mt-3"></div>
+      <div className="divider divider-accent"></div>
       <h2 className="font-bold text-xl mb-3">Bem vindo!</h2>
       <h3 className="font-bold text mb-2">Você precisa estar cadastrado para contribuir na Wiki</h3>
       <input 
@@ -33,7 +34,17 @@ export default function RegisterForm() {
         placeholder="Senha" 
         className="input input-primary w-full" 
       />
-      <button className="btn btn-secundary w-full">Solicitar cadastro</button>
+
+    <div className="flex flex-col">
+      <div className="form-control w-52">
+        <label className="label cursor-pointer">
+          <span className="label-text">Termos e Condições</span>
+          <input type="checkbox" className="toggle toggle-success"  />
+        </label>
+      </div>
+    </div>
+
+    <button className="btn btn-secundary w-full">Solicitar cadastro</button>
     </form>
     );
 }

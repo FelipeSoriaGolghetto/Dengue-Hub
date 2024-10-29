@@ -11,7 +11,7 @@ const Navbar = () => {
     <>
     <div className="navbar bg-button rounded-full relative">
   <div className="flex-1">
-    <a className="btn btn-ghost text-2xl font-bold ml-20">DENGUE HUB
+    <a className="btn btn-ghost text-2xl font-bold ml-20" href=''>DENGUE HUB
     <img src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" />
     </a>
   </div>
@@ -22,7 +22,7 @@ const Navbar = () => {
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-        <img src="/user-icon.svg" alt="Logo" width={0} height={0} className="mr-1" />
+        <img src="/user-icon-small.svg" alt="Logo" width={0} height={0} className="mr-1" />
         </div>
       </div>
       <ul

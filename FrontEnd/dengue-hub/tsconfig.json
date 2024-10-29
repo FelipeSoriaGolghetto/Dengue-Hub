@@ -29,7 +29,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/LoginForm.tsx"  ],
   "exclude": [
     "node_modules"
   ]

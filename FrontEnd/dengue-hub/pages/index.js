@@ -1,5 +1,3 @@
-import Sidebar from '../components/sidebar'; // Importe a Sidebar
-import Topbar from '../components/topbar';
 import Drawer from '../components/drawer';
 import Navbar from '../components/navbar';
 import Link from 'next/link';
@@ -15,7 +13,7 @@ const WikiHome = () => {
   return (
     <div className="layout">
       
-      <div className="content">
+      <div className="content backgroundImage-">
       
       <Navbar /> 
       <Drawer /> 
@@ -37,7 +35,7 @@ const WikiHome = () => {
         <p className="lista">
           2-Voo: O aedes aegypt é mais rápido que um pernilongo,  sendo assim mais difícil de matá-lo a "sandalhadas" ou tapas, porém,  enquanto voa, ele normalmente fica rodeando o local antes de pousar. Ele  também voa mais na altura da perna humana, mas pode chegar a voar até  mais que 1,50m
         </p>
-        <div className="wiki-metadata float-left mt-10 mr-10">
+        <div className="wiki-metadata float-left mt-10 ml-10">
             <h2 className="font-bold">Prefeitura Municipal de Pereiras</h2>
             <img src="https://www.pereiras.sp.gov.br/public/admin/globalarq/uploads/files/338386918_600517725466525_5865963220632897994_n.jpg" class="wiki-pic" />
             <table className="wiki-table">

@@ -22,7 +22,10 @@ module.exports = {
     themes: [
       {
         light: {
-          primary: "#000",
+          primary: "#000000",
+          neutral: "#C7EAC1",
+          secondary: "#96CE8C",
+          accent: "#CAC4D0",
         },
       },
     ],
