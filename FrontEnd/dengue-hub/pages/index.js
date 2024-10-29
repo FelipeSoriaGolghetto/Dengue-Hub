@@ -1,5 +1,3 @@
-import Sidebar from '../components/sidebar'; // Importe a Sidebar
-import Topbar from '../components/topbar';
 import Drawer from '../components/drawer';
 import Navbar from '../components/navbar';
 import Link from 'next/link';
