@@ -2,6 +2,9 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import NextAuth from "next-auth"
 
 const handler = NextAuth({
+  pages:{
+    signIn: '/login',
+  },
   providers: [
     CredentialsProvider({
     name: 'Credentials',
