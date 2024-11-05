@@ -12,7 +12,7 @@ const handler = NextAuth({
       email: { label: "Email", type: "email", placeholder: "email" },
       password: { label: "Password", type: "password" }
     },
-    async authorize(credentials, req) {
+    async authorize(credentials) {
             if (!credentials){
                 return null;
             }
