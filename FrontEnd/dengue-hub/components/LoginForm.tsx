@@ -1,13 +1,12 @@
 "use client";
 
-import Image from 'next/image';
 import React from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 
 export default function LoginForm() {
     const router = useRouter();
+
     async function login(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -17,14 +16,32 @@ export default function LoginForm() {
             password: formData.get('password'),
         };
 
-        console.log(data);
-        signIn('credentials', {
-            ...data,
-            callbackUrl: '/admin',
-        });
+        try {
+            // Chamada ao endpoint FastAPI
+            const response = await fetch(`http://127.0.0.1:8000/users`, {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
 
+            if (response.ok) {
+                const result = await response.json();
+                
+                // Realiza o login com `next-auth` após confirmação do FastAPI
+                signIn('credentials', {
+                    ...data,
+                    callbackUrl: '/admin',
+                });
+            } else {
+                console.error('Login falhou:', response.statusText);
+                // Adicione uma mensagem de erro aqui se desejar
+            }
+        } catch (error) {
+            console.error('Erro ao conectar com a API:', error);
+        }
     };
-        
+
     return (
         <form 
         onSubmit={login}
@@ -49,12 +66,8 @@ export default function LoginForm() {
                 placeholder="Senha" 
                 className="input input-primary w-full" 
             />
-            <button className="btn btn-secundary w-full">Fazer login</button>
+            <button type="submit" className="btn btn-secundary w-full">Fazer login</button>
             <a className="btn btn-secundary w-full" style={{ backgroundColor: 'black', color: 'white' }} onClick={() => router.push('/cadastro')}>Cadastre-se</a>
-
         </form>
     );
 }
-
-
-    
