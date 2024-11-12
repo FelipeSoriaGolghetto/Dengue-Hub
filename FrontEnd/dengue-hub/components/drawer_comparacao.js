@@ -36,12 +36,12 @@ const Drawer = () => {
     <ul className="menu font-bold min-h-full w-60 p-4 bg-sidebar">
       {/* Sidebar content here */}
       <a className="text-xl">Guia de Conteúdos</a>
-      <li><a href='/'><img src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" /> Wiki</a></li>
-      <li><a href='/login'><img src="/user-icon.svg" alt="Login" width={40} height={40} className="mr-1" /> Login</a></li>
+      <li><a><img src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" /> Wiki</a></li>
+      <li><a><img src="/user-icon.svg" alt="Login" width={40} height={40} className="mr-1" /> Login</a></li>
       <li> <a onClick={handleGetUser}> {/* Modifique o botão "Estatísticas" */}<img src="/file.svg" alt="Estatísticas" width={40} height={40} className="mr-1" />Estatísticas</a></li>
-      <li><a><img src="/globe.svg" alt="Globe" width={40} height={40} className="mr-1" /> Mapas</a></li>
-      <li><a><img src="/window.svg" alt="Window" width={40} height={40} className="mr-1" /> Histórico</a></li>
-      <li><a href='/admin'><img src="/user-check.svg" alt="Auth" width={40} height={40} className="mr-1" /> Autenticação de usuários</a></li>
+      <li><a><img src="/globe.svg" alt="Login" width={40} height={40} className="mr-1" /> Mapas</a></li>
+      <li><a><img src="/window.svg" alt="Login" width={40} height={40} className="mr-1" /> Histórico</a></li>
+      <li><a href='/authentication'><img src="/window.svg" alt="Login" width={40} height={40} className="mr-1" /> Autenticação de usuários</a></li>
     </ul>
   </div>
 </div>

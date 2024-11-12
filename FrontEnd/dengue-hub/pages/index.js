@@ -13,7 +13,7 @@ const WikiHome = () => {
   return (
     <div className="layout">
       
-      <div className="content backgroundImage-">
+      <div className="content">
       
       <Navbar /> 
       <Drawer /> 
