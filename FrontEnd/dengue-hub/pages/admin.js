@@ -21,7 +21,6 @@ const Autenticacao = () => {
   return (
     <div className='layout' style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', padding: '20px' }}>
       <Navbar /> 
-      <Drawer /> 
       <h1 style={{ fontSize: '34px', fontWeight: 'bold', marginTop: '30px', textAlign: 'center', marginBottom: '60px'}}>Autenticação de usuários</h1>
       {solicitacoes.map((solicitacao) => (
         <div key={solicitacao.id} style={styles.card}>

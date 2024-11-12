@@ -16,7 +16,6 @@ const WikiHome = () => {
       <div className="content">
       
       <Navbar /> 
-      <Drawer /> 
       
       <h4 className="titulo mt-5">Como identificar um aedes aegypti voando ?</h4>
           <div className="wiki-metadata">
