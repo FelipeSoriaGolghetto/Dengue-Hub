@@ -42,6 +42,8 @@ const Drawer = () => {
       <li><a><img src="/globe.svg" alt="Globe" width={40} height={40} className="mr-1" /> Mapas</a></li>
       <li><a><img src="/window.svg" alt="Window" width={40} height={40} className="mr-1" /> Histórico</a></li>
       <li><a href='/admin'><img src="/user-check.svg" alt="Auth" width={40} height={40} className="mr-1" /> Autenticação de usuários</a></li>
+      <li><a href='/landpage'><img src="/x-circle.svg" alt="Auth" width={40} height={40} className="mr-1" /> Landpage</a></li>
+      <li><a href='/landing'><img src="/x-circle.svg" alt="Auth" width={40} height={40} className="mr-1" /> Landing</a></li>
     </ul>
   </div>
 </div>

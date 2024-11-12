@@ -11,8 +11,9 @@ const Navbar = () => {
     <>
     <div className="navbar bg-button rounded-full relative">
   <div className="flex-1">
-    <a className="btn btn-ghost text-2xl font-bold ml-20" href=''>DENGUE HUB
-    <img src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" />
+    <a  href='/'
+        className="btn btn-ghost text-2xl font-bold ml-20">DENGUE HUB
+        <img src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" />
     </a>
   </div>
   <div className="flex-none gap-2">
