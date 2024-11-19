@@ -2,20 +2,39 @@ import React from 'react';
 import Navbar from '../components/navbar';
 import Drawer from '../components/drawer';
 import { useState } from 'react';
+import { authenticateUser, rejectUser } from '../services/autentication';
 
 
 const Autenticacao = () => {
   const solicitacoes = [
     { id: 1, nome: 'Alice Santos', profissao: 'Professora de Biologia' },
-    { id: 2, nome: 'Carlos Oliveira', profissao: 'Estudante de Biomedicina' }
+    { id: 2, nome: 'Carlos Oliveira', profissao: 'Estudante de Biomedicina' },
   ];
 
-  const handleAccept = (id) => {
-    alert(`Solicitação de ID ${id} foi aceita.`);
+  const handleAccept = async (id) => {
+    try {
+      const response = await authenticateUser(id);
+      if (response.ok) {
+        alert(`Solicitação de ID ${id} foi aceita.`);
+      } else {
+        alert('Erro ao autenticar usuário.');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+    }
   };
 
-  const handleReject = (id) => {
-    alert(`Solicitação de ID ${id} foi rejeitada.`);
+  const handleReject = async (id) => {
+    try {
+      const response = await rejectUser(id);
+      if (response.ok) {
+        alert(`Solicitação de ID ${id} foi rejeitada.`);
+      } else {
+        alert('Erro ao rejeitar usuário.');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+    }
   };
 
   return (
@@ -29,7 +48,11 @@ const Autenticacao = () => {
             <p style={styles.text}><strong>Profissão:</strong> {solicitacao.profissao}</p>
           </div>
           <div style={styles.buttonContainer}>
-            <button className="btn btn-success rounded-full hover:bg-green-700 text-white font-bold" onClick={() => handleAccept(solicitacao.id)} style={styles.acceptButton}>
+          <button 
+               className="btn btn-success rounded-full hover:bg-green-700 text-white font-bold" 
+               onClick={() => handleAccept(solicitacao.id)} 
+               style={styles.acceptButton}
+          >
                 <img src="/check-circle.svg" alt="Check" width={30} height={30} className="mr-1" />
             </button>
             <button className="btn btn-error rounded-full hover:bg-red-700 text-white font-bold" onClick={() => handleReject(solicitacao.id)} style={styles.rejectButton}>
@@ -42,6 +65,7 @@ const Autenticacao = () => {
   );
 };
 
+export default Autenticacao;
 
 
 const styles = {
@@ -88,4 +112,3 @@ const styles = {
   },
 };
 
-export default Autenticacao;
