@@ -9,15 +9,19 @@ export default function RegisterForm() {
         const formData = new FormData(e.currentTarget);
 
         const data = {
-            name: formData.get('name'),
-            job: formData.get('job'),
-            email: formData.get('email'),
-            password: formData.get('password'),
-        };
+        id_user: 1,
+        user_email: formData.get('email'),
+        user_name: formData.get('name'),
+        user_role: formData.get('job'),
+        password: formData.get('password'),
+        sign_up_date: "",
+        status: "Pending",
+        wiki_role: ""
+    };
 
         console.log(data);
 
-        const response = await fetch('/api/register', {
+        const response = await fetch('http://127.0.0.1:8000/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
