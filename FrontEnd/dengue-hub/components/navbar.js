@@ -3,16 +3,19 @@ import Link from 'next/link';
 import '../styles/global.css';
 import Image from 'next/image';
 import Logo from '../public/logo-mosquito.svg';
+import Drawer from '../components/drawer';
 
 const Navbar = () => {
 
 
   return (
     <>
-    <div className="navbar bg-button rounded-full relative">
+    <div className="navbar bg-button rounded-full">
   <div className="flex-1">
-    <a className="btn btn-ghost text-2xl font-bold ml-20" href=''>DENGUE HUB
-    <img src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" />
+    <Drawer/>
+    <a  href='/'
+        className="btn btn-ghost text-2xl font-bold">DENGUE HUB
+        <img src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" />
     </a>
   </div>
   <div className="flex-none gap-2">

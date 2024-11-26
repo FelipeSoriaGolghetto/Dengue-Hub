@@ -19,10 +19,14 @@ app.add_middleware(
 
 # Modelos para os dados
 class User(BaseModel):
-    id_user: int
-    user_email: str
-    user_name: str
-    user_role: str
+    id_user: Optional[int]
+    user_email: Optional[str]
+    user_name: Optional[str]
+    user_role: Optional[str]
+    password: Optional[str]
+    sign_up_date: Optional[str]
+    status: Optional[str]
+    wiki_role: Optional[str]
 
 # Modelo para Registrations
 class Registration(BaseModel):
@@ -51,12 +55,12 @@ class ArticleChangeHistory(BaseModel):
     image: Optional[bytes]  # Pode ser None
 
 @app.post("/users/", response_model=User)
-def create_user(user: User):
+def create_user(user:User):
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute(
-        "INSERT INTO Users (id_user, user_email, user_name, user_role) VALUES (%s, %s, %s, %s) RETURNING id_user;",
-        (user.id_user, user.user_email, user.user_name, user.user_role)
+        "INSERT INTO Users (user_email, user_name, user_role, password, status) VALUES (%s, %s, %s, %s, 'Pending') RETURNING id_user;",
+        (user.user_email, user.user_name, user.user_role, user.password)
     )
     user_id = cur.fetchone()[0]
     conn.commit()
@@ -65,32 +69,23 @@ def create_user(user: User):
     user.id_user = user_id
     return user
 
-@app.get("/users/{user_id}", response_model=User)
-def read_user(user_id: int):
+@app.get("/users/", response_model=List[User])
+def read_user(user_id: Optional[int] = None, user_name: Optional[str] = None):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM Users WHERE id_user = %s;", (user_id,))
-    user = cur.fetchone()
-    cur.close()
-    conn.close()
-    
-    if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    
-    return User(id_user=user[0], user_email=user[1], user_name=user[2], user_role=user[3])
-
-
-@app.get("/users_by_name/{name}", response_model=List[User])
-def read_user(name: str):
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM Users WHERE user_name = %s;", (name,))
+    if user_id is None and user_name is None:
+        raise HTTPException(status_code=400, detail="Informe 'id' ou 'name' como parâmetro de busca.")
+    if user_id is not None and user_name is None:
+        cur.execute("SELECT * FROM Users WHERE id_user = %s;", (user_id,))
+    else:
+        cur.execute("SELECT * FROM Users WHERE user_name = %s;", (user_name,))
     users = cur.fetchall()
     cur.close()
     conn.close()
     
     if users is None:
-        return None
+        raise HTTPException(status_code=404, detail="User not found")
+    print (users)
     
     users_list = []
     for user in users:
@@ -98,12 +93,40 @@ def read_user(name: str):
             "id_user": user[0],
             "user_email": user[1],
             "user_name": user[2],
-            "user_role": user[3]
+            "user_role": user[3],
+            "password": user[4],
+            "sign_up_date": user[5],
+            "status": user[6],
+            "wiki_role": user[7]
         })
 
-    print('chegou')
+    print (users_list)
 
+    
     return users_list
+
+
+@app.patch("/users/{user_id}/authenticate")
+def authenticate_user(user_id: int):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute(
+        "UPDATE users SET status = 'Authenticated' WHERE id_user = %s;",(user_id,)
+    )
+    conn.commit()
+    cur.close()
+    conn.close()
+
+@app.patch("/users/{user_id}/reject")
+def authenticate_user(user_id: int):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute(
+        "UPDATE users SET status = 'Rejected' WHERE id_user = %s;",(user_id,)
+    )
+    conn.commit()
+    cur.close()
+    conn.close()
 
 @app.put("/users/{user_id}", response_model=User)
 def update_user(user_id: int, user: User):
@@ -139,28 +162,35 @@ def delete_user(user_id: int):
     return User(id_user=user[0], user_email=user[1], user_name=user[2], user_role=user[3])
 
 
-@app.post("/login", response_model=User)
-def verify_registration_and_create_user(user: User):
+@app.get("/login", response_model=User)
+def validade_user_in_login(user_email: str, user_password: str):
+    print('alou')
     conn = get_db_connection()
     cur = conn.cursor()
     
     # Buscar o usuário pelo email
-    cur.execute("SELECT user_email, user_password FROM Users WHERE user_email = %s;", (user.email,))
+    cur.execute("SELECT * from users where user_email = %s and password = %s ;", (user_email,user_password))
     user_result = cur.fetchone()
     cur.close()
     conn.close()
     
-    if user is None:
+    if user_result is None:
         raise HTTPException(status_code=404, detail="User not found")
-
-    user_email, user_password = user_result
     
-    # Verificar a senha
-    if user.password != user_password:
-        raise HTTPException(status_code=403, detail="Invalid password")
-    
-    return {"message": "Access granted"}
+    user = User(
+        id_user=user_result[0],
+        user_email=user_result[1],
+        user_name=user_result[2],
+        user_role=user_result[3],
+        password=user_result[4],
+        sign_up_date=user_result[5],
+        status=user_result[6],
+        wiki_role=user_result[7]
+    )
 
+    
+    return user
+    
 @app.post("/registrations/", response_model=Registration)
 def create_registration(registration: Registration):
     conn = get_db_connection()
