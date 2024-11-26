@@ -22,7 +22,6 @@ export default function LoginForm() {
             ...data,
             callbackUrl: '/admin',
         });
-
     };
         
     return (
@@ -51,7 +50,6 @@ export default function LoginForm() {
             />
             <button className="btn btn-secundary w-full">Fazer login</button>
             <a className="btn btn-secundary w-full" style={{ backgroundColor: 'black', color: 'white' }} onClick={() => router.push('/cadastro')}>Cadastre-se</a>
-
         </form>
     );
 }
