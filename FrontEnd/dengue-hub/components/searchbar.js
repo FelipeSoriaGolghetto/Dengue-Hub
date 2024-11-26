@@ -10,10 +10,10 @@ const SearchBar = () => {
 
   return (
     <>
-        <div className="input flex items-center gap-2 w-80">
+        <div className="input flex items-center gap-2 h-14 w-max">
           <img src="/menu-icon.svg" alt="drawer" width={20} className="mr-1" />  
 
-          <input type="text" className="grow" placeholder="O que deseja saber sobre a dengue?" />
+          <input type="text" className="grow border-none w-min-64" placeholder="O que deseja saber sobre a dengue?" />
           <img src="/lupa.svg" alt="drawer" width={90} className="mr-1" />  
         </div>
     </>

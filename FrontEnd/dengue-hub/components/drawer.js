@@ -34,19 +34,21 @@ const Drawer = () => {
         
         <div className="drawer-side">
           <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-          <ul className="menu font-bold min-h-screen w-60 p-8 bg-sidebar">
+          <ul className="menu font-bold min-h-screen items-center w-60 p-1 bg-sidebar">
          
             {/* Sidebar content here */}
-            <a className="text-xl mt-16">Guia de Conteúdos</a>
-            <li><a href='/'><img src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" /> Wiki</a></li>
-            <li><a href='/login'><img src="/user-icon.svg" alt="Login" width={40} height={40} className="mr-1" /> Login</a></li>
-            <li> <a onClick={handleGetUser}> {/* Modifique o botão "Estatísticas" */}<img src="/file.svg" alt="Estatísticas" width={40} height={40} className="mr-1" />Estatísticas</a></li>
-            <li><a><img src="/globe.svg" alt="Globe" width={40} height={40} className="mr-1" /> Mapas</a></li>
-            <li><a><img src="/window.svg" alt="Window" width={40} height={40} className="mr-1" /> Histórico</a></li>
-            <li><a href='/admin'><img src="/user-check.svg" alt="Auth" width={40} height={40} className="mr-1" /> Autenticação de usuários</a></li>
-            <li><a href='/landpage'><img src="/x-circle.svg" alt="Auth" width={40} height={40} className="mr-1" /> Landpage</a></li>
-            <li><a href='/landing'><img src="/x-circle.svg" alt="Auth" width={40} height={40} className="mr-1" /> Landing</a></li>
-         
+            <div className="mt-16">
+              <a className="text-xl ">Guia de Conteúdos</a>
+              <div className="divider divider-accent"></div>
+            </div>
+            <div  className="items-start" >
+              <li><a href='/'><img src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" /> Wiki</a></li>
+              <li><a href='/login'><img src="/user-icon.svg" alt="Login" width={40} height={40} className="mr-1" /> Login</a></li>
+              <li> <a onClick={handleGetUser}> {/* Modifique o botão "Estatísticas" */}<img src="/file.svg" alt="Estatísticas" width={40} height={40} className="mr-1" />Estatísticas</a></li>
+              <li><a><img src="/globe.svg" alt="Globe" width={40} height={40} className="mr-1" /> Mapas</a></li>
+              <li><a><img src="/window.svg" alt="Window" width={40} height={40} className="mr-1" /> Histórico</a></li>
+              <li><a href='/admin'><img src="/user-check.svg" alt="Auth" width={40} height={40} className="mr-1" /> Autenticação de usuários</a></li>
+            </div>
           </ul>
         </div>
       </div>
