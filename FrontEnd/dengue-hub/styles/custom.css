@@ -34,16 +34,11 @@ img {
 
 /* Alterando o fundo da página inteira */
 body {
-  background-color: #A8A8A8; /* Cor de fundo (pode alterar para o que quiser) */
+  background-color: #eeeeee; /* Cor de fundo (pode alterar para o que quiser) */
   font-family: 'Roboto', sans-serif; /* Definindo a fonte global */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-/* Para adicionar padding nas páginas, se necessário */
-main {
-  padding: 2rem;
 }
 
 /* Estilize os textos globais */
