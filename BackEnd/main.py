@@ -8,6 +8,8 @@ from datetime import date
 from fastapi.middleware.cors import CORSMiddleware
 from models import User, Registration, WebPageArticle, ArticleChangeHistory
 
+# node_modules/@next/swc-darwin-arm64/next-swc.darwin-arm64.node
+
 app = FastAPI()
 
 app.add_middleware(
@@ -25,8 +27,8 @@ def create_user(user:User):
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute(
-        "INSERT INTO Users (user_email, user_name, user_role, password, status) VALUES (%s, %s, %s, %s, 'Pending') RETURNING id_user;",
-        (user.user_email, user.user_name, user.user_role, user.password)
+        "INSERT INTO Users (user_email, user_name, user_role, password, status, sign_up_date, wiki_role) VALUES (%s, %s, %s, %s, 'Pending', %s, 'Pending') RETURNING id_user;",
+        (user.user_email, user.user_name, user.user_role, user.password, date.today().isoformat())
     )
     user_id = cur.fetchone()[0]
     conn.commit()
@@ -69,7 +71,7 @@ def read_user(id_user: Optional[int] = None, user_name: Optional[str] = None, st
             "user_name": user[2],
             "user_role": user[3],
             "password": user[4],
-            "sign_up_date": user[5],
+            "sign_up_date": user[5].isoformat(),
             "status": user[6],
             "wiki_role": user[7]
         })
