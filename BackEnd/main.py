@@ -35,24 +35,32 @@ def create_user(user:User):
     user.id_user = user_id
     return user
 
+
+
 @app.get("/users/", response_model=List[User])
-def read_user(user_id: Optional[int] = None, user_name: Optional[str] = None):
+def read_user(id_user: Optional[int] = None, user_name: Optional[str] = None, status: Optional[str] = None):
     conn = get_db_connection()
     cur = conn.cursor()
-    if user_id is None and user_name is None:
-        raise HTTPException(status_code=400, detail="Informe 'id' ou 'name' como parâmetro de busca.")
-    if user_id is not None and user_name is None:
-        cur.execute("SELECT * FROM Users WHERE id_user = %s;", (user_id,))
-    else:
-        cur.execute("SELECT * FROM Users WHERE user_name = %s;", (user_name,))
+    base_query = "SELECT * FROM Users"
+    filters = []
+    if id_user:
+        filters.append("id_user = " + str(id_user))
+    if user_name:
+        filters.append("user_name = '" + user_name + "'")
+    if status:
+        filters.append("status = '" + status + "'")
+    if filters:
+        base_query += " WHERE " + " AND ".join(filters) + ";"
+
+    print(base_query)
+    cur.execute(base_query, (id_user, user_name, status))
+    print(id_user, user_name, status)
     users = cur.fetchall()
     cur.close()
     conn.close()
     
     if users is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    print (users)
-    
+        raise HTTPException(status_code=404, detail="User not found")    
     users_list = []
     for user in users:
         users_list.append({
@@ -65,14 +73,11 @@ def read_user(user_id: Optional[int] = None, user_name: Optional[str] = None):
             "status": user[6],
             "wiki_role": user[7]
         })
-
-    print (users_list)
-
     
     return users_list
 
 
-@app.patch("/users/{user_id}/authenticate")
+@app.patch("/users/authenticate/{user_id}")
 def authenticate_user(user_id: int):
     conn = get_db_connection()
     cur = conn.cursor()
@@ -82,8 +87,9 @@ def authenticate_user(user_id: int):
     conn.commit()
     cur.close()
     conn.close()
+    return {"message": "User updated successfully"}
 
-@app.patch("/users/{user_id}/reject")
+@app.patch("/users/reject/{user_id}")
 def authenticate_user(user_id: int):
     conn = get_db_connection()
     cur = conn.cursor()
@@ -93,6 +99,7 @@ def authenticate_user(user_id: int):
     conn.commit()
     cur.close()
     conn.close()
+    return {"message": "User updated successfully"}
 
 @app.put("/users/{user_id}", response_model=User)
 def update_user(user_id: int, user: User):
