@@ -40,9 +40,10 @@ class ArticleChangeHistory(BaseModel):
     id_user: int
     image: Optional[bytes]  # Pode ser None
 
-class WebPageArticle(BaseModel):
-    id_article: int
-    text: str
-    previous_id: int
-    id_user: int
-    image: Optional[bytes]  # Pode ser None
+# Modelo para Articles
+class Article(BaseModel):
+    id: int
+    title: str
+    content: str
+    author_id: int
+    created_at: Optional[date]  # Pode ser None

@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/navbar';
-import Drawer from '../components/drawer';
-import { useState } from 'react';
-import { authenticateUser, rejectUser } from '../services/autentication';
-
+import { authenticateUser, rejectUser } from '../Services/autentication';
 
 const Autenticacao = () => {
-  const solicitacoes = [
-    { id: 1, nome: 'Alice Santos', profissao: 'Professora de Biologia' },
-    { id: 2, nome: 'Carlos Oliveira', profissao: 'Estudante de Biomedicina' },
-  ];
+  const [solicitacoes, setSolicitacoes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSolicitacoes = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/users/?status=Pending');
+        if (response.ok) {
+          const data = await response.json();
+          setSolicitacoes(data); 
+        } else {
+          console.error('Erro ao buscar solicitações:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar solicitações:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSolicitacoes();
+  }, []);
 
   const handleAccept = async (id) => {
     try {
       const response = await authenticateUser(id);
-      if (response.ok) {
-        alert(`Solicitação de ID ${id} foi aceita.`);
-      } else {
-        alert('Erro ao autenticar usuário.');
-      }
+      window.location.reload(); // Recarrega a página
+      alert(`Cadastro validado com sucesso!`);
     } catch (error) {
       console.error('Erro:', error);
     }
@@ -27,11 +39,8 @@ const Autenticacao = () => {
   const handleReject = async (id) => {
     try {
       const response = await rejectUser(id);
-      if (response.ok) {
-        alert(`Solicitação de ID ${id} foi rejeitada.`);
-      } else {
-        alert('Erro ao rejeitar usuário.');
-      }
+      alert(`Cadastro rejeitado!`);
+      window.location.reload(); // Recarrega a página
     } catch (error) {
       console.error('Erro:', error);
     }
@@ -40,36 +49,48 @@ const Autenticacao = () => {
   return (
     <div className='layout' style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', padding: '20px' }}>
       <Navbar /> 
-      <h1 style={{ fontSize: '34px', fontWeight: 'bold', marginTop: '30px', textAlign: 'center', marginBottom: '60px'}}>Autenticação de usuários</h1>
-      {solicitacoes.map((solicitacao) => (
-        <div key={solicitacao.id} style={styles.card}>
-          <div style={styles.infoContainer}>
-            <p style={styles.text}><strong>Nome:</strong> {solicitacao.nome}</p>
-            <p style={styles.text}><strong>Profissão:</strong> {solicitacao.profissao}</p>
-          </div>
-          <div style={styles.buttonContainer}>
-          <button 
-               className="btn btn-success rounded-full hover:bg-green-700 text-white font-bold" 
-               onClick={() => handleAccept(solicitacao.id)} 
-               style={styles.acceptButton}
-          >
+      <h1 style={{ fontSize: '34px', fontWeight: 'bold', marginTop: '30px', textAlign: 'center', marginBottom: '20px'}}>Autenticação de usuários</h1>
+      
+      <p style={{ textAlign: 'center', fontSize: '18px', marginBottom: '40px' }}>
+        {isLoading ? 'Carregando...' : `Total de solicitações pendentes: ${solicitacoes.length}`}
+      </p>
+      
+      {isLoading ? (
+        <p style={{ textAlign: 'center' }}>Carregando...</p>
+      ) : (
+        solicitacoes.map((solicitacao) => (
+          <div key={solicitacao.id_user} style={styles.card}>
+            <div style={styles.infoContainer}>
+              <p style={styles.text}><strong>Nome:</strong> {solicitacao.user_name}</p>
+              <p style={styles.text}><strong>Profissão:</strong> {solicitacao.user_role}</p>
+            </div>
+            <div style={styles.buttonContainer}>
+              <button 
+                className="btn btn-success rounded-full hover:bg-green-700 text-white font-bold" 
+                onClick={() => handleAccept(solicitacao.id_user)} 
+                style={styles.acceptButton}
+              >
                 <img src="/check-circle.svg" alt="Check" width={30} height={30} className="mr-1" />
-            </button>
-            <button className="btn btn-error rounded-full hover:bg-red-700 text-white font-bold" onClick={() => handleReject(solicitacao.id)} style={styles.rejectButton}>
+              </button>
+              <button 
+                className="btn btn-error rounded-full hover:bg-red-700 text-white font-bold" 
+                onClick={() => handleReject(solicitacao.id_user)} 
+                style={styles.rejectButton}
+              >
                 <img src="/x-circle.svg" alt="X" width={30} height={30} className="mr-1" />
-            </button>
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
     </div>
   );
 };
 
 export default Autenticacao;
 
-
+// Estilos mantêm-se iguais ao código inicial
 const styles = {
-
   card: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -111,4 +132,3 @@ const styles = {
     fontWeight: 'bold',
   },
 };
-
