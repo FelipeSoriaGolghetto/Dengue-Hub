@@ -15,36 +15,8 @@ router = APIRouter()
 
 
 
-@router.get("/login", response_model=User)
-def validade_user_in_login(user_email: str, user_password: str):
-    print('alou')
-    conn = get_db_connection()
-    cur = conn.cursor()
-    
-    # Buscar o usuário pelo email
-    cur.execute("SELECT * from users where user_email = %s and password = %s ;", (user_email,user_password))
-    user_result = cur.fetchone()
-    cur.close()
-    conn.close()
-    
-    if user_result is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    
-    user = User(
-        id_user=user_result[0],
-        user_email=user_result[1],
-        user_name=user_result[2],
-        user_role=user_result[3],
-        password=user_result[4],
-        sign_up_date=user_result[5],
-        status=user_result[6],
-        wiki_role=user_result[7]
-    )
 
-    
-    return user
-    
-@router.post("/registrations/", response_model=Registration)
+@router.post("", response_model=Registration)
 def create_registration(registration: Registration):
     conn = get_db_connection()
     cur = conn.cursor()
@@ -59,7 +31,7 @@ def create_registration(registration: Registration):
     registration.id_registration = registration_id
     return registration
 
-@router.get("/registrations/{registration_id}", response_model=Registration)
+@router.get("{registration_id}", response_model=Registration)
 def read_registration(registration_id: int):
     conn = get_db_connection()
     cur = conn.cursor()
@@ -73,7 +45,7 @@ def read_registration(registration_id: int):
     
     return Registration(id_registration=registration[0], role=registration[1], email=registration[2], user_name=registration[3], sign_up_date=registration[4], aprover_id=registration[5], status=registration[6])
 
-@router.put("/registrations/{registration_id}", response_model=Registration)
+@router.put("{registration_id}", response_model=Registration)
 def update_registration(registration_id: int, registration: Registration):
     conn = get_db_connection()
     cur = conn.cursor()
@@ -87,7 +59,7 @@ def update_registration(registration_id: int, registration: Registration):
     registration.id_registration = registration_id
     return registration
 
-@router.delete("/registrations/{registration_id}", response_model=Registration)
+@router.delete("{registration_id}", response_model=Registration)
 def delete_registration(registration_id: int):
     conn = get_db_connection()
     cur = conn.cursor()
