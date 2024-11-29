@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 import psycopg2
 from typing import List
@@ -8,7 +9,12 @@ from datetime import date
 from fastapi.middleware.cors import CORSMiddleware
 from models import User, Registration, WebPageArticle, ArticleChangeHistory
 
-app = FastAPI()
+TAG_NOVAS_ROTAS = "Novas rotas"
+
+app = FastAPI(
+    title="Dengue Hub",
+    docs_url="/docs"
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,7 +24,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+# Redirecionar de "/" para "/docs"
+@app.get("/", include_in_schema=False)  # Exclui essa rota da documentação Swagger
+async def redirect_to_docs():
+    return RedirectResponse(url="/docs")
 
 @app.post("/users/", response_model=User)
 def create_user(user:User):
@@ -310,4 +319,45 @@ def read_article_change(modification_id: int):
         raise HTTPException(status_code=404, detail="Change not found")
     
     return ArticleChangeHistory(modification_id=change[0], text=change)
+
+@app.get("/articles/", response_model=List[WebPageArticle], tags= [TAG_NOVAS_ROTAS])
+def get_articles():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT id_article, text, previous_id, id_user, image FROM Web_Page_Articles;")
+    articles = cur.fetchall()
+    cur.close()
+    conn.close()
+    
+    articles_list = []
+    for article in articles:
+        articles_list.append({
+            "id_article": article[0],
+            "text": article[1],
+            "previous_id": article[2],
+            "id_user": article[3],
+            "image": article[4]
+        })
+    
+    return articles_list
+
+@app.get("/articles/{slug}", response_model=WebPageArticle, tags=[TAG_NOVAS_ROTAS])
+def get_article_by_slug(slug: str):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT id_article, text, previous_id, id_user, image FROM Web_Page_Articles WHERE id_article = %s;", (slug,))
+    article = cur.fetchone()
+    cur.close()
+    conn.close()
+    
+    if article is None:
+        raise HTTPException(status_code=404, detail="Article not found")
+    
+    return {
+        "id_article": article[0],
+        "text": article[1],
+        "previous_id": article[2],
+        "id_user": article[3],
+        "image": article[4]
+    }
 
