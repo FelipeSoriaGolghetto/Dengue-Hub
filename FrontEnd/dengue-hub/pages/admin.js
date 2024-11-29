@@ -30,7 +30,7 @@ const Autenticacao = () => {
     try {
       const response = await authenticateUser(id);
       window.location.reload(); // Recarrega a página
-      alert(`Solicitação de ID ${id} foi aceita com sucesso!`);
+      alert(`Cadastro validado com sucesso!`);
     } catch (error) {
       console.error('Erro:', error);
     }
@@ -39,7 +39,7 @@ const Autenticacao = () => {
   const handleReject = async (id) => {
     try {
       const response = await rejectUser(id);
-      alert(`Solicitação de ID ${id} foi aceita com sucesso!`);
+      alert(`Cadastro rejeitado!`);
       window.location.reload(); // Recarrega a página
     } catch (error) {
       console.error('Erro:', error);

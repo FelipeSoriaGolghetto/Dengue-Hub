@@ -37,11 +37,11 @@ def read_user(id_user: Optional[int] = None, user_name: Optional[str] = None, st
     base_query = "SELECT * FROM Users"
     filters = []
     if id_user:
-        filters.routerend("id_user = " + str(id_user))
+        filters.append("id_user = " + str(id_user))
     if user_name:
-        filters.routerend("user_name = '" + user_name + "'")
+        filters.append("user_name = '" + user_name + "'")
     if status:
-        filters.routerend("status = '" + status + "'")
+        filters.append("status = '" + status + "'")
     if filters:
         base_query += " WHERE " + " AND ".join(filters) + ";"
 
@@ -56,7 +56,7 @@ def read_user(id_user: Optional[int] = None, user_name: Optional[str] = None, st
         raise HTTPException(status_code=404, detail="User not found")    
     users_list = []
     for user in users:
-        users_list.routerend({
+        users_list.append({
             "id_user": user[0],
             "user_email": user[1],
             "user_name": user[2],
@@ -75,7 +75,7 @@ def authenticate_user(user_id: int):
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute(
-        "UPDATE users SET status = 'Authenticated' WHERE id_user = %s;",(user_id,)
+        "UPDATE users SET status = 'Authenticated', wiki_role = 'Editor' WHERE id_user = %s;",(user_id,)
     )
     conn.commit()
     cur.close()
