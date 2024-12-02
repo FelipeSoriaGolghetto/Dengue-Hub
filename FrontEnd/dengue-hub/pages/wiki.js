@@ -3,11 +3,6 @@ import Navbar from '../components/navbar';
 import Link from 'next/link';
 import '../styles/custom.css';
 
-const articles = [
-  { slug: 'introducao-nextjs', title: 'Introdução ao Next.js' },
-  { slug: 'react-hooks', title: 'Entendendo React Hooks' },
-  { slug: 'javascript-basics', title: 'Conceitos Básicos de JavaScript' },
-];
 
 const WikiHome = () => {
   return (
