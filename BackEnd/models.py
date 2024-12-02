@@ -1,5 +1,5 @@
 # Modelos para os dados
-from datetime import date
+from datetime import date, datetime
 from typing import Optional
 from pydantic import BaseModel
 
@@ -41,9 +41,16 @@ class ArticleChangeHistory(BaseModel):
     image: Optional[bytes]  # Pode ser None
 
 # Modelo para Articles
+
+# Modelo para Articles
 class Article(BaseModel):
-    id: int
+    id: Optional[int] = None
     title: str
+    category: Optional[str] = None
     content: str
     author_id: int
-    created_at: Optional[date]  # Pode ser None
+    created_at: Optional[datetime] = None
+
+class ArticleSlug(BaseModel):
+    slug: str
+    title: str
