@@ -5,9 +5,7 @@ import remarkGfm from 'remark-gfm'; // for tables, strikethrough, etc.
 import rehypeRaw from 'rehype-raw'; // allows raw HTML rendering (if needed)
 import Navbar from '../components/navbar';
 
-import "quill/dist/quill.snow.css"; // Estilo do Quill
-import "highlight.js/styles/atom-one-dark.css"; // Estilo do highlight.js
-import "katex/dist/katex.min.css"; // Estilo do KaTeX
+import Head from 'next/head';
 
 import QuillEditor from '../components/quillEditor';
 
@@ -16,24 +14,24 @@ export default function QuillMarkdown() {
   const [title, setTitle] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [previewContent, setPreviewContent] = useState('');
-
+  
   // Debounced preview update for smooth typing
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setPreviewContent(markdown);
     }, 300);
-
+    
     return () => clearTimeout(timeoutId);
   }, [markdown]);
-
+  
   const handleSave = async () => {
     if (!title || !markdown) {
       alert("Please provide both a title and content.");
       return;
     }
-
+    
     setIsSaving(true);
-
+    
     try {
       const response = await fetch('/api/your-api-endpoint', { // Replace with your API endpoint
         method: 'POST',
@@ -45,11 +43,11 @@ export default function QuillMarkdown() {
           content: markdown,
         }),
       });
-
+      
       if (!response.ok) {
         throw new Error('Failed to save page');
       }
-
+      
       alert('Page saved successfully!');
       setTitle('');
       setMarkdown('');
@@ -76,7 +74,7 @@ export default function QuillMarkdown() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="w-2xl p-2 mb-4 border rounded text-lg"
-        />
+          />
         <div className="w-2xl mx-auto p-8">
           <QuillEditor/>
         </div>
@@ -84,7 +82,7 @@ export default function QuillMarkdown() {
           onClick={handleSave}
           disabled={isSaving}
           className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded mt-4"
-        >
+          >
           {isSaving ? 'Saving...' : 'Save Page'}
         </button>
         

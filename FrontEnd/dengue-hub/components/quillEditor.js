@@ -1,19 +1,20 @@
 // components/QuillEditor.js
-import { useEffect } from "react";
+import { useEffect, useRef  } from "react";
 import dynamic from "next/dynamic";
 
 // Estilos necessários
 import "quill/dist/quill.snow.css"; // Estilo do Quill
 import "highlight.js/styles/atom-one-dark.css"; // Estilo do highlight.js
 import "katex/dist/katex.min.css"; // Estilo do KaTeX
+import 'highlight.js/styles/default.css';
 
 const QuillEditor = () => {
+
   useEffect(() => {
     let Quill, hljs;
 
     // Carregar o Highlight.js primeiro
     const loadHighlightAndQuill = async () => {
-      // Carrega highlight.js
       hljs = (await import("highlight.js")).default;
 
       // Depois carrega o Quill
@@ -23,9 +24,9 @@ const QuillEditor = () => {
       // Configura o Quill com o módulo de sintaxe e o Highlight.js
       const quill = new Quill("#editor", {
         modules: {
-          syntax: {
-            highlight: hljs.highlightAuto, // Usando highlight.js para destacar o código
-          },
+          syntax: false,//{
+          //   highlight: hljs.highlightAuto, // Usando highlight.js para destacar o código
+          // },
           toolbar: "#toolbar-container",
         },
         placeholder: "Compose an epic...",
