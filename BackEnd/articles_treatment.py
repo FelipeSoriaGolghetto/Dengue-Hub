@@ -6,12 +6,11 @@ from database import get_db_connection
 from typing import Optional
 from datetime import date
 from fastapi.middleware.cors import CORSMiddleware
-from models import User, Registration, Article
+from models import ArticleSlug, User, Registration, Article
 from fastapi import APIRouter
 
 
 router = APIRouter()
-
 
 @router.post("", response_model=Article)
 def create_article(article: Article):
@@ -27,6 +26,26 @@ def create_article(article: Article):
     conn.close()
     article.id = id
     return article
+
+@router.get("/slugs", response_model=List[ArticleSlug])
+def get_article_slugs():
+    try:
+        conn = get_db_connection()  # Obtenha a conexão com o banco
+        cur = conn.cursor()
+        
+        # Execute a consulta para obter os slugs
+        cur.execute("SELECT id FROM articles_treatment")
+        slugs = cur.fetchall()
+
+        # Transforme os resultados em uma lista de dicionários
+        slug_list = [{"slug": str(row[0])} for row in slugs]
+        
+        # Retorne a lista no formato esperado
+        return slug_list
+    finally:
+        # Certifique-se de fechar o cursor e a conexão
+        cur.close()
+        conn.close()
 
 @router.get("/{id}", response_model=Article)
 def read_article(id: int):
