@@ -50,11 +50,11 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="input flex items-end gap-1 h-14 w-2/5" ref={searchBarRef}>
+      <div className="input flex items-end gap h-14 w-2/5" ref={searchBarRef}>
       <Drawer/>
         <input
           type="text"
-          className="grow border-none w-full mb-1.5 ml-10"
+          className="grow border-none w-full mb-1.5 ml-1"
           placeholder="O que deseja saber sobre a dengue?"
           value={searchTerm}
           onChange={handleSearch}

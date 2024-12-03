@@ -14,15 +14,14 @@ export default function Home() {
   const [helpText, setHelpText] = useState("");
 
   const fixedOptions = [
-    { value: "tipo", label: "Tipo", description: "Descrição sobre o Tipo" },
-    { value: "inicio", label: "Início", description: "Descrição sobre o Início" },
-    { value: "final", label: "Final", description: "Descrição sobre o Final" },
+    { value: "tipo", label: "Tipo", description: 'tipo=1: Visita a Imóveis: imóveis trabalhados, fechados e pendencia tipo=2: Visita a Imóveis: imóveis trabalhados, fechados e tratamentos \n tipo=3: Agentes: semana, dias, imóveis trabalhados, fechados e positivos \n tipo=4: Visitas: imóveis trabalhados, fechados, positivos e tratamentos \n tipo=5: Controle de Criadouros: imóveis trabalhados, fechados e tratamentos \n tipo=6: Áreas Transmissão: imóveis trabalhados, fechados, tratamentos e recip. com água \n tipo=7: Índices Controle: imóveis trabalhados, fechados, recip. com água, larvas e índices \n tipo=8: Aval Densid Larvária: imóveis trabalhados, recip. positivos e índices \n tipo=9: Aval Densid Larvária - Grupo de Recipientes: qualificação de recipients por grupo \n tipo=10: Aval Densid Larvária: índices de recipientes \n tipo=11: Ovitrampa: positividade \n tipo=12: Imóveis Cadastrados: cobertura. Considera existentes antes do período de início \n tipo=13: Imóveis Cadastrados: positividade e tratamentos \n tipo=14: Aval Densid Larvária - Tipo de Recipientes: qualificação de recipients por tipo e censitário \n tipo=15: Visita a Imóveis - Pendência por Setor Censitário \n tipo=16: Visita a Imóveis - Qualificação da Pendência por Setor Censitário'}, 
+    { value: "inicio", label: "Início", description: "Inicio do período de interesse (yyyy-mm-dd)"},
+    { value: "final", label: "Final", description: "Fim do período de interesse (yyyy-mm-dd)" }
   ];
 
   const dynamicOptions = [
-    { value: "opcao1", label: "Opção 1", description: "Descrição sobre a Opção 1" },
-    { value: "opcao2", label: "Opção 2", description: "Descrição sobre a Opção 2" },
-    { value: "opcao3", label: "Opção 3", description: "Descrição sobre a Opção 3" },
+    { value: "id", label: "Id", description: "Id da região" },
+    { value: "exec", label: "exec", description: "Executado pelo Estado ou pelo município " },
   ];
 
   const handleApiCall = async () => {
@@ -43,6 +42,7 @@ export default function Home() {
 
       const apiUrl = queryParams ? `${baseUrl}&${queryParams}` : baseUrl;
 
+      
       setApiUrl(apiUrl);
 
       const response = await fetch(apiUrl);
@@ -85,30 +85,46 @@ export default function Home() {
   const renderTable = () => {
     if (!apiResponse || apiResponse.length === 0) return null;
     const columns = Object.keys(apiResponse[0]);
-
+  
     return (
-      <table style={styles.table}>
-        <thead>
-          <tr>
-            {columns.map((column, index) => (
-              <th key={index} style={styles.tableHeader}>
-                {column.charAt(0).toUpperCase() + column.slice(1)}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {apiResponse.map((item, index) => (
-            <tr key={index}>
-              {columns.map((column, idx) => (
-                <td key={idx} style={styles.tableData}>
-                  {item[column]}
-                </td>
+      <div>
+        <table style={styles.table}>
+          <thead>
+            <tr>
+              {columns.map((column, index) => (
+                <th key={index} style={styles.tableHeader}>
+                  {column.charAt(0).toUpperCase() + column.slice(1)}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {apiResponse.map((item, index) => (
+              <tr key={index}>
+                {columns.map((column, idx) => (
+                  <td key={idx} style={styles.tableData}>
+                    {item[column]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+  
+        {/* Botão de glossário */}
+        <div style={styles.glossaryButtonContainer}>
+          <button
+            style={styles.glossaryButton}
+            onClick={() =>
+              alert(
+                "Glossário: \n Focal: nº de imov que tiveram trabalho com foco de dengue \n Perifocal: ação em pontos estratégicos \n Nebulização(Fumacê): Nº de casas afetadas \n Im: imóveis com positivo para cada mosquito \n Área: Partição de um município (cada um tem cerca de 18 áreas)"
+              )
+            }
+          >
+            Glossário
+          </button>
+        </div>
+      </div>
     );
   };
 
@@ -118,7 +134,7 @@ return (
     <div style={styles.titleContainer}>
       <h1 style={styles.title}>Estatísticas</h1>
       <button
-        onClick={() => alert("Informações sobre as estatísticas.")}
+        onClick={() => alert("O Sisaweb é um sistema eletrônico utilizado por órgãos de saúde no Brasil, especialmente no estado de São Paulo, para coleta, armazenamento e consulta de dados epidemiológicos. Ele é parte do Sistema de Informações de Saúde, desenvolvido para facilitar o acompanhamento e análise de informações relacionadas à vigilância epidemiológica e sanitária. A partir da pesquisa, são retornados dados do Sisaweb relativos a arboviroses.")}
         style={styles.helpButtonCircle}
       >
         ?
@@ -190,6 +206,23 @@ return (
 }
 
 const styles = {
+  glossaryButtonContainer: {
+    marginTop: "20px", // Espaçamento entre a tabela e o botão
+    textAlign: "right", // Alinha o botão no lado direito
+    },
+  glossaryButton: {
+    padding: "8px 15px",
+    backgroundColor: "#4CAF50",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "14px",
+    transition: "background-color 0.3s ease",
+    },
+  glossaryButtonHover: {
+    backgroundColor: "#45a049", // Cor ao passar o mouse
+    },
   titleContainer: {
     display: "flex",
     alignItems: "center", // Alinha o botão "?" com o texto
@@ -254,21 +287,27 @@ const styles = {
     cursor: "pointer",
     fontSize: "14px",
   },
-  mainButton: {
-    padding: "15px 30px",
-    backgroundColor: "#4CAF50",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    fontSize: "18px",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
-    textAlign: "center",
-    position: "absolute", // Centraliza em relação ao contêiner
-    left: "50%", // Corrigido com aspas
-    transform: "translateX(-50%)", // Centraliza horizontalmente
-  },
-  table: { width: "100%", marginTop: "20px", borderCollapse: "collapse" },
+ mainButton: {
+  padding: "15px 30px",
+  backgroundColor: "#4CAF50",
+  color: "white",
+  border: "none",
+  borderRadius: "5px",
+  fontSize: "18px",
+  cursor: "pointer",
+  transition: "background-color 0.3s ease",
+  textAlign: "center",
+  position: "absolute", // Centraliza em relação ao contêiner
+  left: "50%",
+  transform: "translateX(-50%)",
+  marginBottom: "30px", // Adicione margem inferior
+},
+
+table: {
+  width: "100%",
+  marginTop: "40px", // Aumente o espaço entre o botão e a tabela
+  borderCollapse: "collapse",
+},
   tableHeader: { backgroundColor: "#4CAF50", color: "white", padding: "10px" },
   tableData: { border: "1px solid #ddd", padding: "8px" },
   error: { color: "red", marginTop: "20px" },

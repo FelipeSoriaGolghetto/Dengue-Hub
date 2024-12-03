@@ -94,7 +94,10 @@ const Navbar = () => {
               </div>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content bg-sidebar rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li><a onClick={handleLogout}>Logout
+              <li><a href='/login' className="link link-hover ">
+                  Login
+                </a>
+                <a onClick={handleLogout}>Logout
                 <span className="badge">New</span>
               </a></li>
             </ul>

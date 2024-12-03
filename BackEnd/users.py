@@ -127,7 +127,7 @@ def delete_user(user_id: int):
     
     return User(id_user=user[0], user_email=user[1], user_name=user[2], user_role=user[3])
 
-@router.get("/verify/Admin{user_email}")
+@router.get("/verify/Admin/{user_email}")
 def verify_user_status(user_email: str):
     conn = get_db_connection()
     cur = conn.cursor()
