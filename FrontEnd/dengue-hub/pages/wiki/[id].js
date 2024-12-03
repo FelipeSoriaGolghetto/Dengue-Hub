@@ -18,7 +18,7 @@ const WikiArticle = ({ article }) => {
 
   return (
     <div className="layout flex p-8">
-      <div className="content">
+      <div className="content ml-10">
         <Navbar />
         <h1 className="titulo mt-5">{article.title}</h1>
         <ReactMarkdown
