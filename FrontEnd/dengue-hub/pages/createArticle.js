@@ -22,7 +22,7 @@ export default function CreateArticle() {
   const handleSaveArticle = async () => {
     setIsSaving(true);
     setMessage(null);
-
+    
     const data = {
       title,
       category,
@@ -30,6 +30,14 @@ export default function CreateArticle() {
       author_id: 7, // Adicione um valor padrão para author_id
       created_at: new Date().toISOString(), // Adicione a data atual como created_at
     };
+    
+    console.log(JSON.stringify(data));
+
+    if (!title || !category || content.trim()=='<p><br></p>') {
+      alert("Preencha todos os campos necessários");
+      setIsSaving(false);
+      return;
+    }
 
     try {
       const response = await fetch('http://localhost:8000/articles/', {
