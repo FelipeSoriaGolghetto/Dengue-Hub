@@ -14,7 +14,7 @@ const Autenticacao = () => {
 
     if (!userEmail) {
       // Se não houver e-mail no localStorage, redireciona para login
-      router.push('/wiki');
+      router.push('/todos');
       return;
     }
 
@@ -28,15 +28,15 @@ const Autenticacao = () => {
           console.log("Usuário autenticado, pode acessar a página");
         } else {
           console.log("Usuário não autorizado, redirecionando...");
-          router.push('/wiki'); // Redireciona para uma página de acesso negado
+          router.push('/todos'); // Redireciona para uma página de acesso negado
         }
       } else {
         console.error("Erro ao verificar status do usuário:", data.detail);
-        router.push('/wiki'); // Se não encontrar o usuário, redireciona para login
+        router.push('/todos'); // Se não encontrar o usuário, redireciona para login
       }
     } catch (error) {
       console.error("Erro ao verificar status do usuário:", error);
-      router.push('/wiki'); // Se ocorrer erro na requisição, redireciona para login
+      router.push('/todos'); // Se ocorrer erro na requisição, redireciona para login
     }
   };
 
