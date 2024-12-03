@@ -6,8 +6,9 @@ const Todos = ({ preventionArticles, treatmentArticles, mosquitoArticles }) => {
   return (
       
       <div className="content h-screen">
-        
-        <Navbar />
+        <div className='p-8'>
+          <Navbar />
+        </div>
         <h1 className="titulo mt-10 ml-10">Lista de Artigos</h1>
         
         <div className="layout flex">
