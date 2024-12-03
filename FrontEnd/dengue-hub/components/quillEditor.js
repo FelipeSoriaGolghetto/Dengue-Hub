@@ -2,6 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import "highlight.js/styles/atom-one-dark.css"; 
 import "quill/dist/quill.snow.css"; 
 import "katex/dist/katex.min.css";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const QuillEditor = ({ title, category, content, onTitleChange, onCategoryChange, onContentChange }) => {
   const quillRef = useRef(null);
@@ -39,6 +44,7 @@ const QuillEditor = ({ title, category, content, onTitleChange, onCategoryChange
       quillInstance.root.innerHTML = content;
     }
   }, [content, quillInstance]);
+
   return (
     <div>
       <input
@@ -48,13 +54,25 @@ const QuillEditor = ({ title, category, content, onTitleChange, onCategoryChange
            onChange={(e) => onTitleChange(e.target.value)}
            className="w-2xl p-2 mb-4 border rounded text-lg mr-10"
          />
-         <input
-             type="text"
-             placeholder="Categoria"
-             value={category}
-             onChange={(e) => onCategoryChange(e.target.value)}
-             className="w-2xl p-2 mb-4 border rounded text-lg"
-           />
+         <div className="w-64 mb-4 border rounded text-lg">    
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth >
+            <InputLabel id="demo-simple-select-label">Categoria</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={category}
+              label="Categoria"
+              onChange={(e) => onCategoryChange(e.target.value)}
+            >
+              <MenuItem value={"mosquito"}>Mosquito</MenuItem>
+              <MenuItem value={"prevencao"}>Prevenção</MenuItem>
+              <MenuItem value={"tratamento"}>Tratamento</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+      </div>
+
            <div id="toolbar-container">
              <span className="ql-formats">
                <select className="ql-font"></select>
