@@ -3,77 +3,12 @@ import "highlight.js/styles/atom-one-dark.css";
 import "quill/dist/quill.snow.css"; 
 import "katex/dist/katex.min.css";
 
-const QuillEditor = () => {
-  
-  const quillRef = useRef(null); // Criação da referência
-  const [isSaving, setIsSaving] = useState(false);
-  const [markdown, setMarkdown] = useState('');
-  const [title, setTitle] = useState('');
-  const [previewContent, setPreviewContent] = useState('');
-  const [category, setCategory] = useState('');
-
-  const handleSave = () => {
-    const quill = quillRef.current;
-    const delta = quill.getContents(); // Conteúdo em formato Delta
-    const html = quill.root.innerHTML; // Conteúdo como HTML
-    const text = quill.getText(); // Apenas o texto plano
-  
-    console.log("Delta:", delta);
-    console.log("HTML:", html);
-    console.log("Texto:", text);
-  };
-
-  async function handleSave3() {
-    // async function handleSave3(e: React.FormEvent<HTMLFormElement>) {
-    // e.preventDefault();
-    // setErrors([]); // Limpa erros anteriores
-    // setMessage(null); // Limpa mensagens gerais
-
-    // const formData = new FormData(e.currentTarget);
-    const html = quillRef.current.root.innerHTML;
-
-    const data = {
-        id: 0,
-        title: title,
-        category: category,
-        content: html,
-        author_id: 7,   //TROCAR DPS!!!!!!!!!!!!!!!!!
-        created_at: "2024-01-01T00:00:00"
-    };
-
-    // if (validationErrors.length > 0) {
-    //     // setErrors(validationErrors); // Exibe os erros
-    //     return; // Interrompe a execução se houver erros
-    // }
-
-    // Envio da requisição HTTP
-    console.log(JSON.stringify(data));
-    try {
-        const response = await fetch("http://127.0.0.1:8000/articles", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          });
-
-        if (response.ok) {
-            // setMessage("Artigo Salvo!");
-            // setIsError(false);
-        } else {
-            const errorData = await response.json();
-            // setMessage(`Erro ao salvar: ${errorData.detail || "Tente novamente."}`);
-            // setIsError(true);
-        }
-    } catch (error) {
-        console.error();
-        // setMessage(error instanceof Error ? error.message : String(error));
-        // setIsError(true);
-    }
-}
+const QuillEditor = ({ title, category, content, onTitleChange, onCategoryChange, onContentChange }) => {
+  const quillRef = useRef(null);
+  const [quillInstance, setQuillInstance] = useState(null);
 
   useEffect(() => {
-    let hljs, Quill;
+    let Quill, hljs;
 
     const loadHighlightAndQuill = async () => {
       hljs = (await import("highlight.js")).default;
@@ -81,51 +16,49 @@ const QuillEditor = () => {
       const QuillImport = (await import("quill")).default;
       Quill = QuillImport;
 
-      quillRef.current = new Quill("#editor", {
+      const quill = new Quill(quillRef.current, {
         modules: {
-          // syntax: {highlight: hljs.highlightAuto,},
           syntax: false,
-          
           toolbar: "#toolbar-container",
         },
         placeholder: "Texto do artigo...",
         theme: "snow",
       });
+
+      quill.root.innerHTML = content;
+
+      quill.on('text-change', () => {
+        onContentChange(quill.root.innerHTML);
+      });
+
+      setQuillInstance(quill);
     };
 
     loadHighlightAndQuill();
   }, []);
 
+  useEffect(() => {
+    if (quillInstance && quillInstance.root.innerHTML !== content) {
+      quillInstance.root.innerHTML = content;
+    }
+  }, [content, quillInstance]);
+
   return (
     <div>
       <input
-          type="text"
-          placeholder="Título da página"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-2xl p-2 mb-4 border rounded text-lg mr-10"
-          />
+        type="text"
+        placeholder="Título da página"
+        value={title}
+        onChange={(e) => onTitleChange(e.target.value)}
+        className="w-2xl p-2 mb-4 border rounded text-lg mr-10"
+      />
       <input
-          type="text"
-          placeholder="Categoria"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="w-2xl p-2 mb-4 border rounded text-lg"
-          />
-        {/* <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl> */}
+        type="text"
+        placeholder="Categoria"
+        value={category}
+        onChange={(e) => onCategoryChange(e.target.value)}
+        className="w-2xl p-2 mb-4 border rounded text-lg"
+      />
       <div id="toolbar-container">
         <span className="ql-formats">
           <select className="ql-font"></select>
@@ -171,14 +104,7 @@ const QuillEditor = () => {
           <button className="ql-clean"></button>
         </span>
       </div>
-      <div id="editor" style={{ height: "400px" }}></div>
-      <button
-          onClick={handleSave3}
-          disabled={isSaving}
-          className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded mt-4"
-          >
-          {isSaving ? 'Saving...' : 'Save Page'}
-      </button>
+      <div ref={quillRef} style={{ height: "400px" }}></div>
     </div>
   );
 };
