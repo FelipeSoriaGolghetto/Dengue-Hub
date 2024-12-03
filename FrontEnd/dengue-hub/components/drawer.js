@@ -24,7 +24,6 @@ const Drawer = () => {
     }
   };
 
-
   return (
     <>
       <div className="drawer mt-2 ml-5">
@@ -36,7 +35,7 @@ const Drawer = () => {
           </label>
         </div>
         
-        <div className="drawer-side">
+        <div className="drawer-side z-50"> {/* Adicionamos z-50 para garantir que o drawer tenha um z-index maior */}
           <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
           <ul className="menu font-bold min-h-screen items-center w-60 p-1 bg-sidebar">
          
