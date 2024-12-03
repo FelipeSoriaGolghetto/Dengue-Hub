@@ -131,15 +131,17 @@ def delete_user(user_id: int):
 def verify_user_status(user_email: str):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM Users WHERE user_email = %s and status = 'Authenticated';", (user_email,))
+    cur.execute("SELECT wiki_role FROM Users WHERE user_email = %s;", (user_email,))
     user_status = cur.fetchone()
     cur.close()
     conn.close()
+
+    print('status: ' +  str(user_status))
     
     if user_status is None:
         raise HTTPException(status_code=404, detail="User not found")
     
-    if user_status[0] == 'Authenticated':
+    if user_status[0] == 'Admin':
         return {"message": "User is authenticated"}
     else:
         return {"message": "User is not authenticated"}

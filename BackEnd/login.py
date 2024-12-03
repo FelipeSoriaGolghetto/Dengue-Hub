@@ -32,7 +32,7 @@ def validade_user_in_login(user_email: str, user_password: str):
         user_name=user_result[2],
         user_role=user_result[3],
         password=user_result[4],
-        sign_up_date=user_result[5],
+        sign_up_date=str(user_result[5]),
         status=user_result[6],
         wiki_role=user_result[7]
     )
