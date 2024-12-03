@@ -11,7 +11,7 @@ const Footer = () => {
     <>
      <footer className="footer bg-gradient-to-t from-green-20 to-blank text-neutral-content p-10">
  
-  <a href='/' className="link link-hover ">
+  <a href='/todos' className="link link-hover ">
     <div className="grid grid-flow-col gap-4">
       <img src="/alert.svg" alt="Logo" width={80} className="mr-1" />
       <div className="grid grid-flow-row gap-4">
@@ -22,7 +22,7 @@ const Footer = () => {
     </div>
   </a>
 
-  <a href='/' className="link link-hover ">
+  <a href='/todos' className="link link-hover ">
     <div className="grid grid-flow-col gap-4">
       <img src="/hospital.svg" alt="Logo" width={60} className="mr-1" />
       <div className="grid grid-flow-row gap-4">
@@ -33,7 +33,7 @@ const Footer = () => {
     </div>
   </a>
 
-  <a href='/wiki' className="link link-hover ">
+  <a href='/todos' className="link link-hover ">
     <div className="grid grid-flow-col gap-4">
       <img src="/mosquito.svg" alt="Logo" width={75} className="mr-1" />
       <div className="grid grid-flow-row gap-4">
@@ -44,7 +44,7 @@ const Footer = () => {
     </div>
   </a>
 
-  <a href='/' className="link link-hover ">
+  <a href='/todos' className="link link-hover ">
     <div className="grid grid-flow-col gap-4">
       <img src="/statistics.svg" alt="Logo" width={90} className="mr-1" />
       <div className="grid grid-flow-row gap-4">
