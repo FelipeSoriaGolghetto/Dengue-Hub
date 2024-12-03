@@ -50,7 +50,7 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="input flex items-end gap-1 h-14 w-2/5" ref={searchBarRef}>
+      <div className="bg-white rounded-full flex items-end gap-0 h-14 w-2/5" ref={searchBarRef}>
           <Drawer/>
         <input
           type="text"

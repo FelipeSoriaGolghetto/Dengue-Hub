@@ -29,7 +29,7 @@ export default function Home() {
     setError(null);
 
     try {
-      const baseUrl = "https://vigent.saude.sp.gov.br/sisaweb_api/dados.php?id=1";
+      const baseUrl = "https://vigent.saude.sp.gov.br/sisaweb_api/dados.php?id=03";
 
       const queryParams = fields
         .filter((field) => field.value)
@@ -42,7 +42,7 @@ export default function Home() {
 
       const apiUrl = queryParams ? `${baseUrl}&${queryParams}` : baseUrl;
 
-      
+      console.log(apiUrl)
       setApiUrl(apiUrl);
 
       const response = await fetch(apiUrl);

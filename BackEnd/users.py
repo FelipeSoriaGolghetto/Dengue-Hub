@@ -165,3 +165,22 @@ def verify_user_status(user_email: str):
         return {"message": "User is authenticated"}
     else:
         return {"message": "User is not authenticated"}
+
+
+
+@router.get("/author_id/{user_email}")
+def author_id(user_email: str):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT id_user FROM Users WHERE user_email = %s;", (user_email,))
+    author_id = cur.fetchone()
+    cur.close()
+    conn.close()
+
+    print('author_id: ' +  str(author_id))
+    
+    if author_id is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"author_id" : author_id}
+    

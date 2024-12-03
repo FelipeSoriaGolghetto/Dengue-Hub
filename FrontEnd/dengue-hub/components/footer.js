@@ -44,7 +44,7 @@ const Footer = () => {
     </div>
   </a>
 
-  <a href='/todos' className="link link-hover ">
+  <a href='/estatisticas' className="link link-hover ">
     <div className="grid grid-flow-col gap-4">
       <img src="/statistics.svg" alt="Logo" width={90} className="mr-1" />
       <div className="grid grid-flow-row gap-4">

@@ -58,12 +58,17 @@ export default function CreateArticle() {
   const handleSaveArticle = async () => {
     setIsSaving(true);
     setMessage(null);
+    const userEmail = localStorage.getItem('user_email');
+    const response_author_id = await fetch(`http://localhost:8000/users/author_id/${userEmail}`);
+
+    const author_id = await response_author_id.json();
+
     
     const data = {
       title,
       category,
       content,
-      author_id: 7, // Adicione um valor padrão para author_id
+      author_id: author_id.author_id[0], // Adicione um valor padrão para author_id
       created_at: new Date().toISOString(), // Adicione a data atual como created_at
     };
     

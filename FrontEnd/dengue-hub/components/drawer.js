@@ -30,7 +30,7 @@ const Drawer = () => {
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content ">
 
-          <label htmlFor="my-drawer" className="btn btn-primary drawer-button bg-button border-none">
+          <label htmlFor="my-drawer" className="btn btn-secondary drawer-button bg-transparent border-none">
             <img src="/menu-icon.svg" alt="Logo" width={40} height={40} className="mr-1" />
           </label>
         </div>
