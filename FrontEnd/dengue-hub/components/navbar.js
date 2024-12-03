@@ -4,12 +4,14 @@ import '../styles/global.css';
 import Image from 'next/image';
 import Logo from '../public/logo-mosquito.svg';
 import Drawer from './drawer';
+import { useRouter } from 'next/router';
 
 const Navbar = () => {
   const [items, setItems] = useState([]); // List of items from the API
   const [searchTerm, setSearchTerm] = useState(""); // Search term
   const [filteredItems, setFilteredItems] = useState([]); // Filtered items
   const searchBarRef = useRef(null); // Reference to the search bar
+  const router = useRouter();
 
   // Fetch data from the API
   useEffect(() => {
@@ -46,6 +48,14 @@ const Navbar = () => {
         )
       );
     }
+  };
+
+  const handleLogout = () => {
+    // Remover o valor do localStorage
+    localStorage.removeItem('user_email');  // Substitua 'user_email' pelo nome da chave que você está usando
+
+    // Redirecionar para a página de login ou home
+    router.push('/todos'); // Redireciona para a página de login
   };
 
   return (
@@ -91,7 +101,7 @@ const Navbar = () => {
                 </a>
               </li>
               <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><a onClick={handleLogout}>Logout</a></li>
             </ul>
           </div>
         </div>

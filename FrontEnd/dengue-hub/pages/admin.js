@@ -20,7 +20,7 @@ const Autenticacao = () => {
 
     try {
       // Fazendo a requisição para a API do backend
-      const response = await fetch(`http://localhost:8000/users/verify/${userEmail}`);
+      const response = await fetch(`http://localhost:8000/users/verify/Admin/${userEmail}`);
       const data = await response.json();
 
       if (response.ok) {
