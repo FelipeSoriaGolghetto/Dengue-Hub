@@ -22,7 +22,7 @@ export default function QuillMarkdown() {
       <div className="max-w-5xl mx-auto p-8">
         <h1 className="text-3xl font-bold mb-4">Crie uma nova página da Wiki</h1>
         <div className="w-2xl mx-auto p-8">
-          <QuillEditor/>
+          <QuillEditor />
         </div>
       </div>
     </div>
