@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Navbar from '../components/navbar';
 import QuillEditor from '../components/quillEditor';
 import ArticleSearchBar from '../components/articleSearchBar';
+import { useRouter } from 'next/router';
+
 
 export default function UpdateArticle() {
   const [articleId, setArticleId] = useState(null);
@@ -12,6 +14,43 @@ export default function UpdateArticle() {
   const [createdAt, setCreatedAt] = useState('');
   const [message, setMessage] = useState(null);
   const [isError, setIsError] = useState(false);
+  const router = useRouter();
+
+
+  const verifyUserStatus = async () => {
+    const userEmail = localStorage.getItem('user_email');
+
+    if (!userEmail) {
+      // Se não houver e-mail no localStorage, redireciona para login
+      router.push('/todos');
+      return;
+    }
+
+    try {
+      // Fazendo a requisição para a API do backend
+      const response = await fetch(`http://localhost:8000/users/verify/Authenticated/${userEmail}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        if (data.message === "User is authenticated") {
+          console.log("Usuário autenticado, pode acessar a página");
+        } else {
+          console.log("Usuário não autorizado, redirecionando...");
+          router.push('/todos'); // Redireciona para uma página de acesso negado
+        }
+      } else {
+        console.error("Erro ao verificar status do usuário:", data.detail);
+        router.push('/todos'); // Se não encontrar o usuário, redireciona para login
+      }
+    } catch (error) {
+      console.error("Erro ao verificar status do usuário:", error);
+      router.push('/todos'); // Se ocorrer erro na requisição, redireciona para login
+    }
+  };
+
+  useEffect(() => {
+    verifyUserStatus();
+  }, []);
 
   // Fetch article data when an article is selected
   const fetchArticleData = async (id) => {
