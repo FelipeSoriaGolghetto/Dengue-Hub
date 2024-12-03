@@ -8,13 +8,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const QuillEditor = () => {
-  
-  const quillRef = useRef(null); 
+const QuillEditor = ({ title, category, content, onTitleChange, onCategoryChange, onContentChange }) => {
+  const quillRef = useRef(null);
+  const [quillInstance, setQuillInstance] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
-
+  
   async function handleSave() {
 
     const rawText = quillRef.current.getText();
@@ -57,7 +57,7 @@ const QuillEditor = () => {
 }
 
   useEffect(() => {
-    let hljs, Quill;
+    let Quill, hljs;
 
     const loadHighlightAndQuill = async () => {
       hljs = (await import("highlight.js")).default;
@@ -65,20 +65,32 @@ const QuillEditor = () => {
       const QuillImport = (await import("quill")).default;
       Quill = QuillImport;
 
-      quillRef.current = new Quill("#editor", {
+      const quill = new Quill(quillRef.current, {
         modules: {
-          // syntax: {highlight: hljs.highlightAuto,},
           syntax: false,
-          
           toolbar: "#toolbar-container",
         },
         placeholder: "Texto do artigo...",
         theme: "snow",
       });
+
+      quill.root.innerHTML = content;
+
+      quill.on('text-change', () => {
+        onContentChange(quill.root.innerHTML);
+      });
+
+      setQuillInstance(quill);
     };
 
     loadHighlightAndQuill();
   }, []);
+
+  useEffect(() => {
+    if (quillInstance && quillInstance.root.innerHTML !== content) {
+      quillInstance.root.innerHTML = content;
+    }
+  }, [content, quillInstance]);
 
   const handleChange = (event) => {
     setCategory(event.target.value);
@@ -87,12 +99,25 @@ const QuillEditor = () => {
   return (
     <div>
       <input
+        type="text"
+        placeholder="Título da página"
+        value={title}
+        onChange={(e) => onTitleChange(e.target.value)}
+        className="w-2xl p-2 mb-4 border rounded text-lg mr-10"
+      />
+      {/* <input
+        type="text"
+        placeholder="Categoria"
+        value={category}
+        onChange={(e) => onCategoryChange(e.target.value)}
+        className="w-2xl p-2 mb-4 border rounded text-lg"
+      />
           type="text"
           placeholder="Título da página"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="p-2 mb-4 border rounded text-lg"
-          />
+          /> */}
       <div className="w-64 mb-4 border rounded text-lg">    
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth >
@@ -156,7 +181,7 @@ const QuillEditor = () => {
           <button className="ql-clean"></button>
         </span>
       </div>
-      <div id="editor" style={{ height: "400px" }}></div>
+      <div ref={quillRef} style={{ height: "400px" }}></div>
       <button
           onClick={handleSave}
           disabled={isSaving}

@@ -127,7 +127,10 @@ def update_article(id: int, article: Article):
 
     cur.close()
     conn.close()
+    if updated_article is None:
+        raise HTTPException(status_code=404, detail="Article not found")
     return Article(id=updated_article[0], title=updated_article[1], category=updated_article[2], content=article.content, author_id=updated_article[4], created_at=updated_article[5])
+
 
 @router.delete("/{id}")
 def delete_article(id: int):
