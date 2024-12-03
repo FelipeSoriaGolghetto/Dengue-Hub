@@ -9,7 +9,7 @@ const Footer = () => {
 
   return (
     <>
-     <footer className="footer bg-gradient-to-t from-green-20 to-blank text-neutral-content p-10">
+     <footer className="footer bg-gradient-to-t from-green-100 to-blank text-neutral-content p-10">
  
   <a href='/todos' className="link link-hover ">
     <div className="grid grid-flow-col gap-4">
