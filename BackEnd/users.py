@@ -126,3 +126,22 @@ def delete_user(user_id: int):
     conn.close()
     
     return User(id_user=user[0], user_email=user[1], user_name=user[2], user_role=user[3])
+
+@router.get("/verify/{user_email}")
+def verify_user_status(user_email: str):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT wiki_role FROM Users WHERE user_email = %s;", (user_email,))
+    user_status = cur.fetchone()
+    cur.close()
+    conn.close()
+
+    print('status: ' +  str(user_status))
+    
+    if user_status is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if user_status[0] == 'Admin':
+        return {"message": "User is authenticated"}
+    else:
+        return {"message": "User is not authenticated"}

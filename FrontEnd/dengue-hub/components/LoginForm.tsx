@@ -42,6 +42,7 @@ export default function LoginForm() {
                 setMessage("Erro ao realizar login. Verifique suas credenciais e tente novamente.");
                 setIsError(true);
             } else {
+                localStorage.setItem("user_email", data.email);
                 setMessage("Login realizado com sucesso!");
                 setIsError(false);
                 router.push("/admin"); // Redireciona para a página desejada

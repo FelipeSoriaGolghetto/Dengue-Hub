@@ -5,6 +5,9 @@ import Image from 'next/image';
 import Logo from '../public/logo-mosquito.svg';
 import Paper from '../public/list-paper-school-svgrepo-com.svg';
 import { getUserById } from '../services/users'; // Importando a função da API
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Drawer = () => {
   const [user, setUser] = useState(null); // Estado para armazenar o usuário
