@@ -18,7 +18,7 @@ def validade_user_in_login(user_email: str, user_password: str):
     cur = conn.cursor()
     
     # Buscar o usuário pelo email
-    cur.execute("SELECT * from users where user_email = %s and password = %s ;", (user_email,user_password))
+    cur.execute("SELECT * from users where user_email = %s and password = %s and status = 'Authenticated' ;", (user_email,user_password))
     user_result = cur.fetchone()
     cur.close()
     conn.close()
