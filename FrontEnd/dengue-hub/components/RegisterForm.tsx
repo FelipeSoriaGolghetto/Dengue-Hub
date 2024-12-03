@@ -6,6 +6,7 @@ export default function RegisterForm() {
     const [errors, setErrors] = useState<string[]>([]); // Estado para erros de validação
     const [message, setMessage] = useState<string | null>(null); // Estado para mensagens de sucesso ou erro geral
     const [isError, setIsError] = useState<boolean>(false); // Define se a mensagem é de erro
+    const [termsAccepted, setTermsAccepted] = useState<boolean>(false); // Estado para a checkbox de termos de uso
 
     async function register(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -31,6 +32,7 @@ export default function RegisterForm() {
         if (!data.user_role) validationErrors.push("Campo 'Profissão' é obrigatório.");
         if (!data.user_email) validationErrors.push("Oampo 'Email' é obrigatório.");
         if (!data.password) validationErrors.push("Oampo 'Senha' é obrigatório.");
+        if (!termsAccepted) validationErrors.push("Você deve aceitar os termos de uso.");
 
         if (validationErrors.length > 0) {
             setErrors(validationErrors); // Exibe os erros
@@ -105,6 +107,16 @@ export default function RegisterForm() {
                 placeholder="Senha"
                 className="input input-primary w-full"
             />
+            <div className="mt-2">
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={termsAccepted}
+                        onChange={(e) => setTermsAccepted(e.target.checked)}
+                    />
+                    Aceito os termos de uso
+                </label>
+            </div>
 
             <button className="btn btn-secundary w-full">Cadastrar</button>
 
