@@ -30,8 +30,8 @@ export default function RegisterForm() {
         const validationErrors: string[] = [];
         if (!data.user_name) validationErrors.push("Campo 'Nome' é obrigatório.");
         if (!data.user_role) validationErrors.push("Campo 'Profissão' é obrigatório.");
-        if (!data.user_email) validationErrors.push("Oampo 'Email' é obrigatório.");
-        if (!data.password) validationErrors.push("Oampo 'Senha' é obrigatório.");
+        if (!data.user_email) validationErrors.push("Campo 'Email' é obrigatório.");
+        if (!data.password) validationErrors.push("Campo 'Senha' é obrigatório.");
         if (!termsAccepted) validationErrors.push("Você deve aceitar os termos de uso.");
 
         if (validationErrors.length > 0) {
