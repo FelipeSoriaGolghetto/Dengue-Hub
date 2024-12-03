@@ -50,15 +50,15 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="input flex items-end gap h-14 w-2/5" ref={searchBarRef}>
-      <Drawer/>
+      <div className="input flex items-end gap-1 h-14 w-2/5" ref={searchBarRef}>
+          <Drawer/>
         <input
           type="text"
-          className="grow border-none w-full mb-1.5 ml-1"
+          className="grow border-none w-screen mb-1.5 ml-10"
           placeholder="O que deseja saber sobre a dengue?"
           value={searchTerm}
           onChange={handleSearch}
-        />
+          />
         <img src="/lupa.svg" alt="search" width={90} className="mr-1 mb-0.5" />  
       </div>
       {searchTerm.length > 0 && filteredItems.length > 0 && (
