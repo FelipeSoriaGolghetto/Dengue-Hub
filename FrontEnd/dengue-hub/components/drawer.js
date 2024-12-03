@@ -47,8 +47,8 @@ const Drawer = () => {
             <div  className="items-start" >
               <li><a href='/todos'><img src="/logo-mosquito.svg" alt="Logo" width={40} height={40} className="mr-1" /> Wiki</a></li>
               <li><a href='/login'><img src="/user-icon.svg" alt="Login" width={40} height={40} className="mr-1" /> Login</a></li>
-              <li> <a onClick={handleGetUser}> {/* Modifique o botão "Estatísticas" */}<img src="/statistics-svgrepo-com.svg" alt="Estatísticas" width={40} height={40} className="mr-1" />Estatísticas</a></li>
-              <li><a><img src="/globe.svg" alt="Globe" width={40} height={40} className="mr-1" /> Mapas</a></li>
+              <li> <a href = '/estatisticas'> {/* Modifique o botão "Estatísticas" */}<img src="/statistics-svgrepo-com.svg" alt="Estatísticas" width={40} height={40} className="mr-1" />Estatísticas</a></li>
+              {/* <li><a><img src="/globe.svg" alt="Globe" width={40} height={40} className="mr-1" /> Mapas</a></li> */}
               <li><a href='/createArticle'><img src="/list-paper-school-svgrepo-com.svg" alt="Novo Artigo" width={40} height={40} className="mr-1" /> Novo Artigo</a></li>
               <li><a href='/updateArticle'><img src="/pencil-svgrepo-com.svg" alt="Atualizar Artigo" width={40} height={40} className="mr-1" /> Atualizar Artigo</a></li>
               <li><a href='/admin'><img src="/user-check.svg" alt="Auth" width={40} height={40} className="mr-1" /> Autenticação de usuários</a></li>
