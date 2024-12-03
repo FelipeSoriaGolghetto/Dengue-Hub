@@ -13,7 +13,7 @@ const Todos = ({ preventionArticles, treatmentArticles, mosquitoArticles }) => {
         <div className="layout flex">
       
         <details className="collapse">
-          <summary className=" ml-10 h-0 w-72 collapse-title text-2xl font-bold rounded-full bg-green-300 hover:bg-green-500">Prevenção</summary>
+          <summary className=" ml-10 h-0 w-72 collapse-title text-2xl font-bold rounded-full bg-green-300 hover:bg-green-500 text-center">Prevenção</summary>
           <div className="collapse-content">
             <ul>
               {preventionArticles.map((preventionArticle) => (
@@ -28,7 +28,7 @@ const Todos = ({ preventionArticles, treatmentArticles, mosquitoArticles }) => {
         </details>
 
         <details className="collapse">
-          <summary className=" ml-10 h-0 w-72 collapse-title text-2xl font-bold rounded-full bg-green-300 hover:bg-green-500">Tratamento</summary>
+          <summary className=" ml-10 h-0 w-72 collapse-title text-2xl font-bold rounded-full bg-green-300 hover:bg-green-500 text-center">Tratamento</summary>
           <div className="collapse-content">
             <ul>
               {treatmentArticles.map((treatmentArticle) => (
@@ -43,7 +43,7 @@ const Todos = ({ preventionArticles, treatmentArticles, mosquitoArticles }) => {
         </details>
 
         <details className="collapse">
-          <summary className=" ml-10 h-0 w-72 collapse-title text-2xl font-bold rounded-full bg-green-300 hover:bg-green-500">Sobre o Mosquito</summary>
+          <summary className=" ml-10 h-0 w-72 collapse-title text-2xl font-bold rounded-full bg-green-300 hover:bg-green-500 text-center">Sobre o Mosquito</summary>
           <div className="collapse-content">
             <ul>
               {mosquitoArticles.map((mosquitoArticle) => (
